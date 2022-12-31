@@ -1,10 +1,11 @@
 <script>
   import { Img, Heading, P } from 'flowbite-svelte';
+  let title = 'Svelte About';
 </script>
 
 <Img src="/images/image-1@2x.jpg" alt="sample 1" size="max-w-lg" alignment="mx-auto" />
 
-<Heading class="p-8" tag="h1" customSize="text-3xl">Responsive Sidebar Layout</Heading>
+<Heading class="p-8" tag="h1" customSize="text-3xl">{title}</Heading>
 
 <P class="px-8 py-4">
   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut

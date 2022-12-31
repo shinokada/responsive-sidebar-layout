@@ -25,8 +25,35 @@
 
   let divClass = 'w-full md:block md:w-auto pr-8';
   let ulClass = 'flex flex-col p-4 mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-lg md:font-medium';
+
+  let backdrop: boolean = false;
+  let activateClickOutside = true;
+  let breakPoint: number = 1024;
+  let width: number;
+  let transitionParams = {
+    x: -320,
+    duration: 200,
+    easing: sineIn
+  };
+  $: if (width >= breakPoint) {
+    drawerHidden = false;
+    activateClickOutside = false;
+  } else {
+    drawerHidden = true;
+    activateClickOutside = true;
+  }
+  onMount(() => {
+    if (width >= breakPoint) {
+      drawerHidden = false;
+      activateClickOutside = false;
+    } else {
+      drawerHidden = true;
+      activateClickOutside = true;
+    }
+  });
 </script>
 
+<svelte:window bind:innerWidth={width} />
 <Navbar let:hidden let:toggle>
   <NavHamburger on:click={toggleDrawer} btnClass="ml-3 lg:hidden" />
   <NavBrand href="/" class="lg:ml-64">
@@ -45,6 +72,18 @@
   </NavUl>
 </Navbar>
 
+<Drawer
+  transitionType="fly"
+  {backdrop}
+  {transitionParams}
+  bind:hidden={drawerHidden}
+  bind:activateClickOutside
+  width="w-64"
+  class="overflow-scroll pb-32"
+  id="sidebar"
+>
+  Drawer
+</Drawer>
 <div class="flex px-4 mx-auto w-full">
   <main class="lg:ml-72 w-full mx-auto">
     <slot />
